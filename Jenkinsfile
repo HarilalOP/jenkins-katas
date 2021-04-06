@@ -59,7 +59,11 @@ pipeline {
     }
 
     stage('component test') {
-      when { branch !'dev/*' }
+      when { 
+        expression {
+            return env.BRANCH_NAME != 'dev/*';
+        } 
+      }
       steps {
         sh 'ci/component-test.sh'
       }
